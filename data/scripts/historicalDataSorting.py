@@ -1,23 +1,16 @@
 import os
 import pandas as pd
 
-# Define the directory containing the standardized season files
-DATA_DIR = './data/files/StandardizedSeasonMatches'
+# Define the directory containing the data files
+DATA_DIR = "data/files/StandardizedSeasonMatches"
 
-# Ensure the output directories exist
-os.makedirs(DATA_DIR, exist_ok=True)
-os.makedirs(os.path.join(DATA_DIR, "../TeamFiles"), exist_ok=True)
-os.makedirs(os.path.join(DATA_DIR, "../Standings"), exist_ok=True)
-
-# Helper function to extract season from file name
-def extract_season_from_filename(filename):
-    return filename.replace("EPLS", "").replace(".csv", "")[:4] + "/" + filename.replace("EPLS", "").replace(".csv", "")[4:]
-
-# Load all seasonal files
+# Initialize a list to store all data for combining later
 all_data = []
+
+# Step 1: Combine all seasonal data and assign global MatchID
 for file in os.listdir(DATA_DIR):
     if file.startswith("EPLS") and file.endswith(".csv"):
-        season = extract_season_from_filename(file)
+        season = file.split('.')[0]  # Extract season from the filename
         print(f"Processing file: {file}, Season: {season}")  # Debugging: Print file name and season
         try:
             # Read the CSV file with error handling for encoding and malformed rows
@@ -27,7 +20,10 @@ for file in os.listdir(DATA_DIR):
                 on_bad_lines='skip'  # Skip problematic lines
             )
             season_data['Season'] = season  # Add season column
+
+            # Append the data to the list for later combination
             all_data.append(season_data)
+
         except pd.errors.ParserError as e:
             print(f"Error parsing file {file}: {e}")
 
@@ -43,28 +39,51 @@ teams = pd.concat([data['HomeTeam'], data['AwayTeam']]).dropna().unique()
 teams = [str(team) for team in teams]  # Ensure all team names are strings
 team_id_map = {team: idx + 1 for idx, team in enumerate(teams)}  # Assign integer IDs starting from 1
 
-# Add homeTeamID and awayTeamID columns using integer IDs
+# Map Team IDs for HomeTeam and AwayTeam
 data['homeTeamID'] = data['HomeTeam'].map(team_id_map)
 data['awayTeamID'] = data['AwayTeam'].map(team_id_map)
 
-# Create Match IDs as integers starting from 1
-data['matchID'] = range(1, len(data) + 1)
+# Create Match IDs as integers starting from 1, aggregated across all matches
+data['MatchID'] = range(1, len(data) + 1)
 
-# Save all-time matches for each team
+# Step 2: Update seasonal files with global MatchID
+for file in os.listdir(DATA_DIR):
+    if file.startswith("EPLS") and file.endswith(".csv"):
+        season = file.split('.')[0]  # Extract season from the filename
+        print(f"Updating MatchID in file: {file}, Season: {season}")  # Debugging: Print file name and season
+        try:
+            # Filter the data for the current season
+            season_data = data[data['Season'] == season]
+
+            # Reorder columns to place MatchID as the third column
+            columns = list(season_data.columns)
+            columns.insert(2, columns.pop(columns.index('MatchID')))
+            season_data = season_data[columns]
+
+            # Save the updated seasonal dataset back to the directory
+            season_data.to_csv(os.path.join(DATA_DIR, file), index=False)
+            print(f"Updated seasonal dataset saved: {file}")
+
+        except Exception as e:
+            print(f"Error updating file {file}: {e}")
+
+# Step 3: Save all-time matches for each team
 columns_to_keep = [
-    'homeTeamID', 'awayTeamID', 'matchID', 'Date', 'HomeTeam', 'AwayTeam',
+    'homeTeamID', 'awayTeamID', 'MatchID', 'Date', 'HomeTeam', 'AwayTeam',
     'FTHG', 'FTAG', 'FTR', 'HTHG', 'HTAG', 'HTR', 'Referee', 'HS', 'AS',
     'HST', 'AST', 'HF', 'AF', 'HC', 'AC', 'HY', 'AY', 'HR', 'AR', 'B365H',
     'B365D', 'B365A'
 ]
 
-# Group all matches by team and save to individual files
 for team in teams:
     team_matches = data[(data['HomeTeam'] == team) | (data['AwayTeam'] == team)]
     team_matches = team_matches[columns_to_keep]  # Keep only the specified columns
-    team_matches.to_csv(os.path.join(DATA_DIR, "../TeamFiles", f"{team}AllTime.csv"), index=False)
 
-# Create yearly standings
+    # Save the team-specific dataset
+    team_matches.to_csv(os.path.join(DATA_DIR, "../TeamFiles", f"{team}AllTime.csv"), index=False)
+    print(f"Updated team dataset saved: {team}AllTime.csv")
+
+# Step 4: Create yearly standings
 data['PointsHome'] = data['FTR'].map({'H': 3, 'D': 1, 'A': 0})
 data['PointsAway'] = data['FTR'].map({'H': 0, 'D': 1, 'A': 3})
 
@@ -119,7 +138,7 @@ for season in data['Season'].unique():
     standings_df.to_csv(os.path.join(DATA_DIR, "../Standings", f"EPLStandings{season.replace('/', '-')}.csv"), index=False)
     standings.append(standings_df)
 
-# Create final dataset for all teams
+# Step 5: Create final dataset for all teams
 history = []
 for standing in standings:
     for _, row in standing.iterrows():

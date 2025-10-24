@@ -1,4 +1,4 @@
-homeTeamID,awayTeamID,matchID,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,Referee,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A
+homeTeamID,awayTeamID,MatchID,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,Referee,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A
 7.0,15.0,7,14/09/2020,Brighton,Chelsea,1.0,3.0,A,0.0,1.0,A,C Pawson,13.0,10.0,3.0,5.0,8.0,13.0,4.0,3.0,1.0,0.0,0.0,0.0,5.0,4.33,1.61
 14.0,7.0,14,20/09/2020,Newcastle,Brighton,0.0,3.0,A,0.0,2.0,A,K Friend,6.0,13.0,0.0,6.0,16.0,15.0,7.0,1.0,3.0,0.0,0.0,1.0,2.6,3.1,2.87
 7.0,11.0,19,26/09/2020,Brighton,Man United,2.0,3.0,A,1.0,1.0,D,C Kavanagh,18.0,7.0,5.0,3.0,18.0,16.0,7.0,1.0,4.0,2.0,0.0,0.0,4.75,3.75,1.72

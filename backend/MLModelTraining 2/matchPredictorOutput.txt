@@ -1,0 +1,78 @@
+Loading models...
+✓ Models loaded successfully
+✓ Loaded data for 44 teams
+
+======================================================================
+Premier League Match Prediction System
+======================================================================
+
+Available teams (44):
+ 1. Arsenal
+ 2. Aston Villa
+ 3. Birmingham
+ 4. Blackburn
+ 5. Blackpool
+ 6. Bolton
+ 7. Bournemouth
+ 8. Brentford
+ 9. Brighton
+10. Burnley
+11. Cardiff
+12. Charlton
+13. Chelsea
+14. Crystal Palace
+15. Derby
+16. Everton
+17. Fulham
+18. Huddersfield
+19. Hull
+20. Ipswich
+21. Leeds
+22. Leicester
+23. Liverpool
+24. Luton
+25. Man City
+26. Man United
+27. Middlesbrough
+28. Newcastle
+29. Norwich
+30. Nott'm Forest
+31. Portsmouth
+32. QPR
+33. Reading
+34. Sheffield United
+35. Southampton
+36. Stoke
+37. Sunderland
+38. Swansea
+39. Tottenham
+40. Watford
+41. West Brom
+42. West Ham
+43. Wigan
+44. Wolves
+
+----------------------------------------------------------------------
+
+Enter season (e.g., 202526) [default: 202526]: 202526
+Enter home team name: Arsenal
+Enter away team name: Chelsea
+
+======================================================================
+=== Match Prediction ===
+Home: Arsenal
+Away: Chelsea
+Season: 202526
+======================================================================
+
+--- Prediction Results ---
+Most Likely Outcome: Home Win
+
+Probabilities:
+  Home Win (Arsenal): 49.00%
+  Draw: 14.30%
+  Away Win (Chelsea): 36.70%
+
+Predict another match? (y/n): n
+
+Thank you for using the prediction system!

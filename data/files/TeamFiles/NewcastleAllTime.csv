@@ -1,4 +1,4 @@
-homeTeamID,awayTeamID,matchID,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,Referee,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A
+homeTeamID,awayTeamID,MatchID,Date,HomeTeam,AwayTeam,FTHG,FTAG,FTR,HTHG,HTAG,HTR,Referee,HS,AS,HST,AST,HF,AF,HC,AC,HY,AY,HR,AR,B365H,B365D,B365A
 4.0,14.0,4,09/12/2020,West Ham,Newcastle,0.0,2.0,A,0.0,0.0,D,S Attwell,15.0,15.0,3.0,2.0,13.0,7.0,8.0,7.0,2.0,2.0,0.0,0.0,2.15,3.4,3.4
 14.0,7.0,14,20/09/2020,Newcastle,Brighton,0.0,3.0,A,0.0,2.0,A,K Friend,6.0,13.0,0.0,6.0,16.0,15.0,7.0,1.0,3.0,0.0,0.0,1.0,2.6,3.1,2.87
 6.0,14.0,24,27/09/2020,Tottenham,Newcastle,1.0,1.0,D,1.0,0.0,H,P Bankes,23.0,6.0,12.0,1.0,15.0,9.0,10.0,4.0,1.0,4.0,0.0,0.0,1.45,4.5,7.0
