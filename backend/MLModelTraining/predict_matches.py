@@ -4,6 +4,9 @@ import numpy as np
 from pathlib import Path
 import joblib
 import warnings
+import json
+import sys
+import pickle
 warnings.filterwarnings('ignore')
 
 class MatchPredictor:
@@ -241,5 +244,6 @@ class MatchPredictor:
                 break
 
 if __name__ == "__main__":
-    predictor = MatchPredictor()
-    predictor.interactive_prediction()
+    input_data = json.loads(sys.argv[1])
+    prediction = predict(input_data)
+    print(json.dumps(prediction))
