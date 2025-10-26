@@ -1,5 +1,7 @@
 // frontend/src/App.js
 import React, { useEffect, useState } from 'react';
+import Sidebar from './components/sidebar';
+import Home from './pages/Home';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -13,9 +15,9 @@ function App() {
   }, []);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '80px', fontFamily: 'Arial' }}>
-      <h1>⚽ Soccer App</h1>
-      <h3 style={{ color: '#28a745' }}>{message}</h3>
+    <div style={{ display: "flex" }}>
+      <Sidebar active="Home" />
+      <Home />
     </div>
   );
 }
