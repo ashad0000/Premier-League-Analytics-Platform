@@ -21,7 +21,14 @@ app.use('/api/predictions', predictionsRoutes);
 app.get('/', (req, res) => {
   res.send('Soccer App Backend is running ⚽');
 });
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+
+// Only start server if NOT running tests
+if (process.env.NODE_ENV !== 'test') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export the Express app for testing
+module.exports = app;
